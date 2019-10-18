@@ -9,9 +9,9 @@
     "server": "hexo server --port 2222",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "prebuild": "yarn clean",
-    "pretest": "yarn clean",
-    "test": "start-test 'yarn server' 2222 'yarn cypress:run'"
+    "prebuild": "npm run clean && npm install --no-save",
+    "pretest": "npm run clean",
+    "test": "start-test 'npm run server' 2222 'npm run cypress:run'"
   },
   "hexo": {
     "version": "4.0.0"
