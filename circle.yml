@@ -6,6 +6,7 @@ env_defaults: &env_defaults
   # need to set unsafe perm to be able to do `npm postinstall`
   npm_config_unsafe-perm: true
 defaults: &defaults
+  working_directory: ~/hexo-ci
   docker:
     # the Docker image with Cypress dependencies
     # https://github.com/cypress-io/cypress-docker-images
@@ -18,16 +19,21 @@ jobs:
   build:
     <<: *defaults
     steps:
+      - checkout
       - run: pwd
       - run: ls -la
       - run: npm run build
   tests:
     <<: *defaults
     steps:
-      - run: npm run test
+      - checkout
+      - run:
+          command: npm run serve
+          background: true
+      - run: npm run cypress:run
 
 workflows:
-  version: 2
+  version: 2.1
   build_and_test:
     jobs:
       - build
