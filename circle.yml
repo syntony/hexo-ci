@@ -1,4 +1,4 @@
-version: 2.1
+version: 2
 
 env_defaults: &env_defaults
   npm_config_loglevel: warn
@@ -28,12 +28,12 @@ jobs:
     steps:
       - checkout
       - run:
-          command: npm run serve
+          command: npm run server
           background: true
       - run: npm run cypress:run
 
 workflows:
-  version: 2.1
+  version: 2
   build_and_test:
     jobs:
       - build
