@@ -6,10 +6,15 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
-    "server": "hexo server"
+    "server": "hexo server --port 2222",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "prebuild": "yarn clean",
+    "pretest": "yarn clean",
+    "test": "start-test 'yarn server' 2222 'yarn cypress:run'"
   },
   "hexo": {
-    "version": ""
+    "version": "4.0.0"
   },
   "dependencies": {
     "hexo": "^4.0.0",
@@ -18,8 +23,12 @@
     "hexo-generator-index": "^1.0.0",
     "hexo-generator-tag": "^1.0.0",
     "hexo-renderer-ejs": "^1.0.0",
-    "hexo-renderer-stylus": "^1.1.0",
     "hexo-renderer-marked": "^2.0.0",
+    "hexo-renderer-stylus": "^1.1.0",
     "hexo-server": "^1.0.0"
+  },
+  "devDependencies": {
+    "cypress": "^3.4.1",
+    "start-server-and-test": "^1.10.6"
   }
 }

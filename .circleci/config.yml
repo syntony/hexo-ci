@@ -1,0 +1,36 @@
+version: 2.1
+
+env_defaults: &env_defaults
+  npm_config_loglevel: warn
+  # even when running as non-root user
+  # need to set unsafe perm to be able to do `npm postinstall`
+  npm_config_unsafe-perm: true
+defaults: &defaults
+  working_directory: ~/hexo-ci
+  docker:
+    # the Docker image with Cypress dependencies
+    # https://github.com/cypress-io/cypress-docker-images
+    # Note: the image needs to have fonts with Chinese characters
+    - image: cypress/base:8.16.0
+      environment:
+        <<: *env_defaults
+
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - run:
+          name: Build
+          command: |
+            npm run build
+  tests:
+
+
+workflows:
+  version: 2.1
+  build_and_test:
+    jobs:
+      - build
+      - tests:
+          requires:
+            - build
